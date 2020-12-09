@@ -8,15 +8,12 @@ import androidx.navigation.ui.setupWithNavController
 import com.shahin.stream.R
 import com.shahin.stream.databinding.ActivityMainBinding
 
-class MainActivity : BaseActivity(R.layout.activity_main) {
-
-    private lateinit var binding: ActivityMainBinding
+class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
+        _binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         setupBottomNavigationBar()
     }
 
