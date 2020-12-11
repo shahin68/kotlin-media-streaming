@@ -5,8 +5,17 @@ import com.google.android.exoplayer2.*
 class MediaPlayerImpl(
     private val exoPlayer: SimpleExoPlayer
 ): MediaPlayer {
+
     override fun getMediaPlayer(): SimpleExoPlayer {
         return exoPlayer
+    }
+
+    override fun registerMediaPlayerListener(mediaEventListener: MediaEventListener) {
+        exoPlayer.addListener(mediaEventListener)
+    }
+
+    override fun unregisterMediaPlayerListener(mediaEventListener: MediaEventListener) {
+        exoPlayer.removeListener(mediaEventListener)
     }
 
     override fun setAndPlaySingleMedia(mediaItem: MediaItem) {
@@ -38,7 +47,7 @@ class MediaPlayerImpl(
     }
 
     override fun replaceAllPlaylist(newItems: List<MediaItem>) {
-        exoPlayer.setMediaItems(newItems,true)
+        exoPlayer.setMediaItems(newItems, true)
         exoPlayer.clearMediaItems()
     }
 

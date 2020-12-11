@@ -1,14 +1,13 @@
 package com.shahin.stream
 
-import android.app.Application
+import androidx.multidex.MultiDexApplication
 import com.shahin.stream.di.homeModule
 import com.shahin.stream.di.localModule
 import com.shahin.stream.di.mediaModule
-import com.shahin.stream.di.mediaPlayerModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
-class App: Application() {
+class App: MultiDexApplication() {
 
     override fun onCreate() {
         super.onCreate()
@@ -18,7 +17,6 @@ class App: Application() {
             modules(
                 localModule,
                 mediaModule,
-                mediaPlayerModule,
                 homeModule
             )
         }

@@ -19,4 +19,6 @@ interface MediaPlayer {
     fun enableShuffle(isShuffleEnabled: Boolean)
     fun isShuffleEnabled(isShuffleEnabled: Boolean): Boolean
     fun setShuffleOrder(mediaShuffleOrder: MediaShuffleOrder)
+    fun registerMediaPlayerListener(mediaEventListener: MediaEventListener)
+    fun unregisterMediaPlayerListener(mediaEventListener: MediaEventListener)
 }

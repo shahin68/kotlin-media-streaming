@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.SimpleExoPlayer
+import com.shahin.stream.mediaplayer.MediaEventListener
 import com.shahin.stream.mediaplayer.MediaPlayer
 import com.shahin.stream.models.Media
 
@@ -24,11 +25,17 @@ class MediaRepositoryImpl(
         _currentPlaylist.postValue(emptyList<MediaItem>().toMutableList())
     }
 
-    override suspend fun setCurrentMediaItem(media: Media) {
-        _currentMedia.postValue(makeMediaItem(media.uri, media.id, media.tag))
+    override fun getMediaPlayer(): SimpleExoPlayer {
+        return mediaPlayer.getMediaPlayer()
     }
 
-    override suspend fun setCurrentPlaylist(medias: List<Media>) {
+    override suspend fun playMedia(media: Media) {
+        val item = makeMediaItem(media.uri, media.id, media.tag)
+        _currentMedia.postValue(item)
+        mediaPlayer.setAndPlaySingleMedia(item)
+    }
+
+    override suspend fun playPlaylist(medias: List<Media>) {
         val mediaItems = mutableListOf<MediaItem>()
         mediaItems.addAll(
             medias.map {
@@ -40,10 +47,7 @@ class MediaRepositoryImpl(
             }
         )
         _currentPlaylist.postValue(mediaItems)
-    }
-
-    override fun getMediaPlayer(): SimpleExoPlayer {
-        return mediaPlayer.getMediaPlayer()
+        mediaPlayer.setAndPlayMediaPlaylist(mediaItems)
     }
 
     private fun makeMediaItem(uri: Uri, id: String?, tag: Any?): MediaItem {
@@ -55,5 +59,11 @@ class MediaRepositoryImpl(
             .build()
     }
 
+    override fun attachMediaPlayerListener(mediaEventListener: MediaEventListener) {
+        mediaPlayer.registerMediaPlayerListener(mediaEventListener)
+    }
 
+    override fun detachMediaPlayerListener(mediaEventListener: MediaEventListener) {
+        mediaPlayer.unregisterMediaPlayerListener(mediaEventListener)
+    }
 }
