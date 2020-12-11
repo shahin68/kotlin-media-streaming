@@ -1,30 +1,35 @@
 package com.shahin.stream.ui
 
 import android.os.Bundle
+import androidx.navigation.NavController
 import androidx.navigation.NavOptions
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.shahin.stream.R
 import com.shahin.stream.databinding.ActivityMainBinding
 
-class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
+class MainActivity : BaseActivity<ActivityMainBinding>() {
+
+    lateinit var navHostFragment: NavHostFragment
+    lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setupBottomNavigationBar()
+        navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.host_fragment) as NavHostFragment
+        navController = navHostFragment.navController
+
+        if (::navHostFragment.isInitialized && ::navController.isInitialized) setupBottomNavigationBar()
     }
 
     private fun setupBottomNavigationBar() {
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.host_fragment) as NavHostFragment
-        val navController = navHostFragment.navController
         binding.navView.setupWithNavController(navController)
         binding.navView.setOnNavigationItemReselectedListener {
             if (navController.currentDestination?.id != binding.navView.selectedItemId) {
                 when (it.itemId) {
-                    R.id.fragment_home -> findNavController(R.id.host_fragment).popBackStack(
+                    R.id.fragment_home -> navController.popBackStack(
                         R.id.fragment_home,
                         false
                     )
@@ -40,12 +45,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         }
         binding.navView.setOnNavigationItemSelectedListener {
             when (it.itemId) {
-                R.id.fragment_home -> findNavController(R.id.host_fragment).popBackStack(
+                R.id.fragment_home -> navController.popBackStack(
                     R.id.fragment_home,
                     false
                 )
                 else -> {
-                    findNavController(R.id.host_fragment).navigate(it.itemId)
+                    navController.navigate(it.itemId)
                 }
             }
             true
@@ -55,5 +60,34 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
             }
         }
+    }
+
+    override fun onBackPressed() {
+        if (binding != null && ::navController.isInitialized) {
+            when (navController.currentDestination?.id) {
+                R.id.fragment_home -> {
+                    if (binding.navView.selectedItemId != R.id.fragment_home) {
+                        navController.popBackStack(
+                            R.id.fragment_home,
+                            false
+                        )
+                    } else {
+                        /**
+                         * moves task to recent tasks without loosing last home state
+                         */
+                        moveTaskToBack(true)
+                    }
+                }
+                else -> {
+                    navController.popBackStack(
+                        R.id.fragment_home,
+                        false
+                    )
+                }
+            }
+        }
+
+        // we don't want to trigger default back press
+//        super.onBackPressed()
     }
 }

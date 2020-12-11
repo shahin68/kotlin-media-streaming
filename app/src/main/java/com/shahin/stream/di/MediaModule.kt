@@ -1,10 +1,8 @@
 package com.shahin.stream.di
 
 import android.content.Context
-import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.android.exoplayer2.analytics.AnalyticsListener
-import com.google.android.exoplayer2.source.MediaSourceFactory
 import com.shahin.stream.data.media.MediaRepository
 import com.shahin.stream.data.media.MediaRepositoryImpl
 import com.shahin.stream.mediaplayer.*

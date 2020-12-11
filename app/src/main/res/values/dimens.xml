@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="generic_size_24dp">24dp</dimen>
+
+    <dimen name="generic_margin_8dp">8dp</dimen>
+    <dimen name="generic_margin_16dp">16dp</dimen>
+    <dimen name="generic_margin_24dp">24dp</dimen>
+
+    <dimen name="generic_text_size_heading">18sp</dimen>
+    <dimen name="generic_text_size_title">28sp</dimen>
+    <dimen name="generic_text_size_body">16sp</dimen>
+
+    <dimen name="search_view_height">52sp</dimen>
+    <dimen name="bottom_navigation_view_elevation">8dp</dimen>
+</resources>

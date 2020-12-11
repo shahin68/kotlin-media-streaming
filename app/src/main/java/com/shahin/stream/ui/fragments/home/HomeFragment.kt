@@ -1,27 +1,21 @@
 package com.shahin.stream.ui.fragments.home
 
 import android.content.Context
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.upstream.RawResourceDataSource
 import com.shahin.stream.R
 import com.shahin.stream.databinding.FragmentHomeBinding
 import com.shahin.stream.mediaplayer.MediaEventListener
 import com.shahin.stream.models.Media
 import com.shahin.stream.ui.fragments.BaseFragment
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
+class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     private val viewModel: HomeViewModel by viewModel()
     lateinit var eventListener: MediaEventListener

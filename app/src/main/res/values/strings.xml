@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Media Stream</string>
     <string name="generic_text_home">Home</string>
+    <string name="generic_text_search">Search</string>
+    <string name="search_query_hint">Search …</string>
+    <string name="generic_text_profile">Profile</string>
 
     <string name="test_media_url" translatable="false">https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4</string>
 </resources>

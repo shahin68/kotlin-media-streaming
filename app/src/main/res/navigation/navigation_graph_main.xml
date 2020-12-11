@@ -9,7 +9,17 @@
         android:id="@+id/fragment_home"
         android:name="com.shahin.stream.ui.fragments.home.HomeFragment"
         android:label="Home"
-        tools:layout="@layout/fragment_home">
+        tools:layout="@layout/fragment_home" />
 
-    </fragment>
+    <fragment
+        android:id="@+id/fragment_search"
+        android:name="com.shahin.stream.ui.fragments.search.SearchFragment"
+        android:label="Search"
+        tools:layout="@layout/fragment_search" />
+
+    <fragment
+        android:id="@+id/fragment_profile"
+        android:name="com.shahin.stream.ui.fragments.profile.ProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile" />
 </navigation>

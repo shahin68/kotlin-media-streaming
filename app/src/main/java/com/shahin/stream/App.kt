@@ -1,7 +1,7 @@
 package com.shahin.stream
 
 import androidx.multidex.MultiDexApplication
-import com.shahin.stream.di.homeModule
+import com.shahin.stream.di.appModule
 import com.shahin.stream.di.localModule
 import com.shahin.stream.di.mediaModule
 import org.koin.android.ext.koin.androidContext
@@ -17,7 +17,7 @@ class App: MultiDexApplication() {
             modules(
                 localModule,
                 mediaModule,
-                homeModule
+                appModule
             )
         }
 

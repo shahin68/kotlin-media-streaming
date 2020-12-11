@@ -34,7 +34,7 @@ abstract class MediaEventListener(
     }
 
     override fun onPlayerStateChanged(playWhenReady: Boolean, playbackState: Int) {
-        Log.d("XXXXXXXX", " ----------------> ")
+        Log.d("MediaEventListener", " ----------------> ")
     }
 
     override fun onPlaybackSuppressionReasonChanged(playbackSuppressionReason: Int) {

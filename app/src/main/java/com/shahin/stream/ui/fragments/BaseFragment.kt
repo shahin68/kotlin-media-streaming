@@ -4,7 +4,7 @@ import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 
-abstract class BaseFragment<T : ViewBinding>(@LayoutRes val layout: Int) : Fragment(layout) {
+abstract class BaseFragment<T : ViewBinding> : Fragment() {
     protected var _binding: T? = null
     protected val binding: T get() = _binding!!
 
