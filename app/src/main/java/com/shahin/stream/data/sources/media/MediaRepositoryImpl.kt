@@ -1,4 +1,4 @@
-package com.shahin.stream.data.media
+package com.shahin.stream.data.sources.media
 
 import android.net.Uri
 import androidx.lifecycle.LiveData
@@ -7,7 +7,7 @@ import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.SimpleExoPlayer
 import com.shahin.stream.mediaplayer.MediaEventListener
 import com.shahin.stream.mediaplayer.MediaPlayer
-import com.shahin.stream.models.Media
+import com.shahin.stream.data.models.Media
 
 class MediaRepositoryImpl(
     private val mediaPlayer: MediaPlayer
@@ -25,8 +25,20 @@ class MediaRepositoryImpl(
         _currentPlaylist.postValue(emptyList<MediaItem>().toMutableList())
     }
 
-    override fun getMediaPlayer(): SimpleExoPlayer {
+    override fun getMediaPlayer(): SimpleExoPlayer? {
         return mediaPlayer.getMediaPlayer()
+    }
+
+    override fun pauseMedia() {
+        mediaPlayer.pause()
+    }
+
+    override fun resumeMedia() {
+        mediaPlayer.resume()
+    }
+
+    override fun releaseMediaPlayer() {
+        mediaPlayer.release()
     }
 
     override suspend fun playMedia(media: Media) {

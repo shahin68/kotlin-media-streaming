@@ -3,8 +3,8 @@ package com.shahin.stream.di
 import android.content.Context
 import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.android.exoplayer2.analytics.AnalyticsListener
-import com.shahin.stream.data.media.MediaRepository
-import com.shahin.stream.data.media.MediaRepositoryImpl
+import com.shahin.stream.data.sources.media.MediaRepository
+import com.shahin.stream.data.sources.media.MediaRepositoryImpl
 import com.shahin.stream.mediaplayer.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module

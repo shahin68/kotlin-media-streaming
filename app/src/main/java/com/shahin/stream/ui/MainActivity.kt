@@ -1,17 +1,24 @@
 package com.shahin.stream.ui
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.shahin.stream.R
 import com.shahin.stream.databinding.ActivityMainBinding
+import com.shahin.stream.mediaplayer.MediaEventListener
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
 
+    private val viewModel: MainViewModel by viewModel()
+
     lateinit var navHostFragment: NavHostFragment
     lateinit var navController: NavController
+
+    lateinit var eventListener: MediaEventListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,8 +27,47 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         navHostFragment =
             supportFragmentManager.findFragmentById(R.id.host_fragment) as NavHostFragment
         navController = navHostFragment.navController
-
         if (::navHostFragment.isInitialized && ::navController.isInitialized) setupBottomNavigationBar()
+
+        viewModel.registerMediaPlayerListener(
+            mediaEventListener = playerEventListener().also {
+                eventListener = it
+            }
+        )
+        initObservers()
+    }
+
+    private fun initObservers() {
+        viewModel.currentMedia.observe(this, {
+
+        })
+    }
+
+    private fun playerEventListener(): MediaEventListener {
+        return object : MediaEventListener() {
+            override fun onPlayerStateChanged(playWhenReady: Boolean, playbackState: Int) {
+                Toast.makeText(this@MainActivity, "State Changed", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if (!::eventListener.isInitialized) {
+            eventListener = playerEventListener()
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        if (::eventListener.isInitialized) {
+            viewModel.unregisterMediaPlayerListener(eventListener)
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        viewModel.releaseMediaPlayer()
     }
 
     private fun setupBottomNavigationBar() {

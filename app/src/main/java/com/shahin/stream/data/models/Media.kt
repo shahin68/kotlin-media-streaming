@@ -1,4 +1,4 @@
-package com.shahin.stream.models
+package com.shahin.stream.data.models
 
 import android.net.Uri
 import androidx.annotation.Keep

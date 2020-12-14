@@ -1,10 +1,10 @@
-package com.shahin.stream.data.media
+package com.shahin.stream.data.sources.media
 
 import androidx.lifecycle.LiveData
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.SimpleExoPlayer
 import com.shahin.stream.mediaplayer.MediaEventListener
-import com.shahin.stream.models.Media
+import com.shahin.stream.data.models.Media
 
 interface MediaRepository {
     val currentMedia: LiveData<MediaItem>
@@ -16,5 +16,8 @@ interface MediaRepository {
     fun attachMediaPlayerListener(mediaEventListener: MediaEventListener)
     fun detachMediaPlayerListener(mediaEventListener: MediaEventListener)
 
-    fun getMediaPlayer(): SimpleExoPlayer
+    fun getMediaPlayer(): SimpleExoPlayer?
+    fun pauseMedia()
+    fun resumeMedia()
+    fun releaseMediaPlayer()
 }

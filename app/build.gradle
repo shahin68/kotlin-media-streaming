@@ -17,6 +17,13 @@ android {
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
+
+        def secureProps = new Properties()
+        if (file("../secure.properties").exists()) {
+            file("../secure.properties")?.withInputStream { secureProps.load(it) }
+        }
+        buildConfigField "String", "YOUTUBE_BASE_URL", (secureProps.getProperty("YOUTUBE_BASE_URL") ?: "")
+        buildConfigField "String", "YOUTUBE_API_KEY", (secureProps.getProperty("YOUTUBE_API_KEY") ?: "")
     }
 
     buildTypes {
@@ -36,6 +43,9 @@ android {
     }
     buildFeatures {
         viewBinding = true
+    }
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
     }
 }
 
@@ -70,4 +80,23 @@ dependencies {
     // Exo Player
     def exo = "2.12.2"
     implementation("com.google.android.exoplayer:exoplayer:$exo")
+
+    // Coil Image Loading Library
+    implementation('io.coil-kt:coil:1.1.0')
+
+    // Flow Binding
+    implementation('io.github.reactivecircus.flowbinding:flowbinding-android:0.10.2')
+
+    // Easy Permissions by Google
+    implementation('pub.devrel:easypermissions:3.0.0')
+
+    // Google Apis
+    implementation('com.google.api-client:google-api-client:1.30.10')
+    implementation('com.google.android.gms:play-services-auth:19.0.0')
+    implementation('com.google.api-client:google-api-client-android:1.22.0') {
+        exclude group: 'org.apache.httpcomponents'
+    }
+    implementation('com.google.apis:google-api-services-youtube:v3-rev183-1.22.0') {
+        exclude group: 'org.apache.httpcomponents'
+    }
 }
